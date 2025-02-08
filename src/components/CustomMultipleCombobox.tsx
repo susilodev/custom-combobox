@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useMemo, useEffect, useRef } from "react";
 import { useCombobox, useMultipleSelection, useSelect } from "downshift";
 import { cn } from "../utils/cn";
