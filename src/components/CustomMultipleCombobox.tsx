@@ -15,7 +15,7 @@ const highlightText = (text: string, query: string) => {
   return text.replace(regex, '<mark class="bg-green-300">$1</mark>');
 };
 
-interface MultipleComboboxProps {
+export interface MultipleComboboxProps {
   options: Option[];
   onSelect: (selectedItems: Option[]) => void;
   onClick?: () => void;
