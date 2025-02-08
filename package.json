@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "./dist/custom-multiple-combobox.umd.js",
   "module": "./dist/custom-multiple-combobox.es.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

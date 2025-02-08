@@ -2934,7 +2934,8 @@ function ye(...r) {
   return rt(tt(...r));
 }
 const ot = (r, n) => {
-  if (!n) return r;
+  if (!n)
+    return r;
   const o = new RegExp(`(${n})`, "gi");
   return r.replace(o, '<mark class="bg-green-300">$1</mark>');
 };
@@ -2946,12 +2947,7 @@ function lt({
   // Default value untuk withSearch adalah true
   ...c
 }) {
-  const [u, d] = ke(""), [b, f] = ke([]), [C, T] = ke(!1), [O, L] = ke(!1), V = Ye(null), A = Ye(null), j = lr(
-    () => r.filter(
-      (p) => p.label.toLowerCase().includes(u.toLowerCase())
-    ),
-    [u, r]
-  ), { getSelectedItemProps: I, removeSelectedItem: M } = xe({
+  const [u, d] = ke(""), [b, f] = ke([]), [C, T] = ke(!1), [O, L] = ke(!1), V = Ye(null), A = Ye(null), j = lr(() => r.filter((p) => p.label.toLowerCase().includes(u.toLowerCase())), [u, r]), { getSelectedItemProps: I, removeSelectedItem: M } = xe({
     selectedItems: b,
     onStateChange({ selectedItems: p, type: v }) {
       switch (v) {
@@ -2963,14 +2959,7 @@ function lt({
           break;
       }
     }
-  }), {
-    isOpen: W,
-    getToggleButtonProps: F,
-    getMenuProps: G,
-    getInputProps: B,
-    highlightedIndex: S,
-    getItemProps: U
-  } = fe({
+  }), { isOpen: W, getToggleButtonProps: F, getMenuProps: G, getInputProps: B, highlightedIndex: S, getItemProps: U } = fe({
     items: j,
     itemToString: (p) => p ? p.label : "",
     inputValue: u,
@@ -2988,11 +2977,7 @@ function lt({
           return v;
       }
     },
-    onStateChange: ({
-      inputValue: p,
-      type: v,
-      selectedItem: y
-    }) => {
+    onStateChange: ({ inputValue: p, type: v, selectedItem: y }) => {
       switch (v) {
         case fe.stateChangeTypes.InputKeyDownEnter:
         case fe.stateChangeTypes.ItemClick:
@@ -3003,13 +2988,7 @@ function lt({
           break;
       }
     }
-  }), {
-    isOpen: Z,
-    getToggleButtonProps: H,
-    getMenuProps: re,
-    highlightedIndex: q,
-    getItemProps: J
-  } = cr({
+  }), { isOpen: Z, getToggleButtonProps: H, getMenuProps: re, highlightedIndex: q, getItemProps: J } = cr({
     items: r,
     onSelectedItemChange: ({ selectedItem: p }) => {
       p && (o ? (f([...b, p]), n([...b, p])) : (f([p]), n([p])));
@@ -3028,169 +3007,27 @@ function lt({
   }, h = () => {
     L(!1);
   };
-  return /* @__PURE__ */ k.jsx(k.Fragment, { children: /* @__PURE__ */ k.jsx(
-    "div",
-    {
-      className: "w-full flex flex-col bg-white h-auto z-[1002] relativea ",
-      ref: V,
-      ...c,
-      children: /* @__PURE__ */ k.jsxs(
-        "div",
-        {
-          className: "relative w-full cursor-pointer",
-          onClick: () => {
-            t && (T(!0), setTimeout(() => {
-              var p;
-              (p = A.current) == null || p.focus();
-            }, 0));
-          },
-          children: [
-            /* @__PURE__ */ k.jsxs(
-              "div",
-              {
-                ...t ? F() : H(),
-                className: "flex items-center border border-slate-300 bg-white rounded-md px-3 py-2 focus-within:shadow-sm focus-within:ring-slate-300 h-10 debug-red",
-                children: [
-                  /* @__PURE__ */ k.jsx("div", { className: "flex flex-wrap gap-1 flex-1", children: b.map((p, v) => /* @__PURE__ */ k.jsxs(
-                    "span",
-                    {
-                      className: "bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-xs flex items-center gap-1",
-                      ...I({
-                        selectedItem: p,
-                        index: v
-                      }),
-                      children: [
-                        p.label,
-                        o && /* @__PURE__ */ k.jsx(
-                          dr,
-                          {
-                            onClick: (y) => {
-                              y.stopPropagation(), M(p);
-                            },
-                            className: "w-3 h-3 cursor-pointer text-gray-500 hover:text-gray-700"
-                          }
-                        )
-                      ]
-                    },
-                    `selected-item-${v}`
-                  )) }),
-                  !t && b.length > 0 && /* @__PURE__ */ k.jsx(
-                    Be,
-                    {
-                      onClick: () => {
-                        M(b[0]);
-                      },
-                      className: "h-4 w-4 bg-gray-400 p-1 rounded-full cursor-pointer text-slate-100 hover:text-white hover:bg-gray-600"
-                    }
-                  ),
-                  /* @__PURE__ */ k.jsx(
-                    ur,
-                    {
-                      className: ye(
-                        "ml-2 cursor-pointer text-xs outline-none focus:outline-none",
-                        O ? "text-slate-500" : "text-slate-300"
-                      )
-                    }
-                  )
-                ]
-              }
-            ),
-            !t && /* @__PURE__ */ k.jsx(k.Fragment, { children: /* @__PURE__ */ k.jsx(
-              "ul",
-              {
-                ...re(),
-                className: ye(
-                  "absolute bg-white z-max left-0 w-full border border-gray-300 pt-1 rounded-bl-md rounded-br-md overflow-hidden",
-                  !Z && "hidden"
-                ),
-                children: Z && r.map((p, v) => /* @__PURE__ */ k.jsx(
-                  "li",
-                  {
-                    ...J({ item: p, index: v }),
-                    className: ye(
-                      "px-4 py-2 cursor-pointer hover:bg-green-100/70 transition",
-                      q === v && "bg-green-50/80",
-                      b.some(
-                        (y) => y.value === p.value
-                      ) && "font-semibold text-gray-900"
-                    ),
-                    children: p.label
-                  },
-                  p.value
-                ))
-              }
-            ) }),
-            t && C && /* @__PURE__ */ k.jsxs("div", { className: "relative w-full mt-2 z-max", children: [
-              /* @__PURE__ */ k.jsxs(
-                "div",
-                {
-                  onFocus: $,
-                  onBlur: () => {
-                    h(), T(!1);
-                  },
-                  className: "flex items-center border border-slate-300 bg-white rounded-md px-3 py-2 focus-within:shadow-sm focus-within:ring-slate-300",
-                  children: [
-                    /* @__PURE__ */ k.jsx(
-                      "input",
-                      {
-                        ...B({
-                          placeholder: "Search...",
-                          className: "flex-1 bg-transparent outline-none min-w-[100px]",
-                          ref: A
-                        })
-                      }
-                    ),
-                    /* @__PURE__ */ k.jsx(
-                      Be,
-                      {
-                        onClick: () => d(""),
-                        className: "h-4 w-4 bg-gray-400 p-1 rounded-full cursor-pointer text-slate-100 hover:text-white hover:bg-gray-600"
-                      }
-                    )
-                  ]
-                }
-              ),
-              /* @__PURE__ */ k.jsxs(
-                "ul",
-                {
-                  ...G(),
-                  className: ye(
-                    "absolute left-0 w-full bg-white border border-gray-300 pt-2 rounded-bl-md rounded-br-md overflow-hidden z-[1000]",
-                    !W && "hidden"
-                  ),
-                  children: [
-                    W && j.map((p, v) => /* @__PURE__ */ k.jsx(
-                      "li",
-                      {
-                        ...U({ item: p, index: v }),
-                        className: ye(
-                          "px-4 py-2 cursor-pointer hover:bg-green-100/70 transition",
-                          S === v && "bg-green-50/80",
-                          b.some(
-                            (y) => y.value === p.value
-                          ) && "font-semibold text-gray-900"
-                        ),
-                        children: /* @__PURE__ */ k.jsx(
-                          "span",
-                          {
-                            dangerouslySetInnerHTML: {
-                              __html: ot(p.label, u)
-                            }
-                          }
-                        )
-                      },
-                      p.value
-                    )),
-                    W && j.length === 0 && /* @__PURE__ */ k.jsx("li", { className: "justify-center w-full mx-auto text-center text-slate-400 p-2", children: "No options" })
-                  ]
-                }
-              )
-            ] })
-          ]
-        }
-      )
-    }
-  ) });
+  return k.jsx(k.Fragment, { children: k.jsx("div", { className: "w-full flex flex-col bg-white h-auto z-[1002] relativea ", ref: V, ...c, children: k.jsxs("div", { className: "relative w-full cursor-pointer", onClick: () => {
+    t && (T(!0), setTimeout(() => {
+      var p;
+      (p = A.current) == null || p.focus();
+    }, 0));
+  }, children: [k.jsxs("div", { ...t ? F() : H(), className: "flex items-center border border-slate-300 bg-white rounded-md px-3 py-2 focus-within:shadow-sm focus-within:ring-slate-300 h-10 debug-red", children: [k.jsx("div", { className: "flex flex-wrap gap-1 flex-1", children: b.map((p, v) => k.jsxs("span", { className: "bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-xs flex items-center gap-1", ...I({
+    selectedItem: p,
+    index: v
+  }), children: [p.label, o && k.jsx(dr, { onClick: (y) => {
+    y.stopPropagation(), M(p);
+  }, className: "w-3 h-3 cursor-pointer text-gray-500 hover:text-gray-700" })] }, `selected-item-${v}`)) }), !t && b.length > 0 && k.jsx(Be, { onClick: () => {
+    M(b[0]);
+  }, className: "h-4 w-4 bg-gray-400 p-1 rounded-full cursor-pointer text-slate-100 hover:text-white hover:bg-gray-600" }), k.jsx(ur, { className: ye("ml-2 cursor-pointer text-xs outline-none focus:outline-none", O ? "text-slate-500" : "text-slate-300") })] }), !t && k.jsx(k.Fragment, { children: k.jsx("ul", { ...re(), className: ye("absolute bg-white z-max left-0 w-full border border-gray-300 pt-1 rounded-bl-md rounded-br-md overflow-hidden", !Z && "hidden"), children: Z && r.map((p, v) => k.jsx("li", { ...J({ item: p, index: v }), className: ye("px-4 py-2 cursor-pointer hover:bg-green-100/70 transition", q === v && "bg-green-50/80", b.some((y) => y.value === p.value) && "font-semibold text-gray-900"), children: p.label }, p.value)) }) }), t && C && k.jsxs("div", { className: "relative w-full mt-2 z-max", children: [k.jsxs("div", { onFocus: $, onBlur: () => {
+    h(), T(!1);
+  }, className: "flex items-center border border-slate-300 bg-white rounded-md px-3 py-2 focus-within:shadow-sm focus-within:ring-slate-300", children: [k.jsx("input", { ...B({
+    placeholder: "Search...",
+    className: "flex-1 bg-transparent outline-none min-w-[100px]",
+    ref: A
+  }) }), k.jsx(Be, { onClick: () => d(""), className: "h-4 w-4 bg-gray-400 p-1 rounded-full cursor-pointer text-slate-100 hover:text-white hover:bg-gray-600" })] }), k.jsxs("ul", { ...G(), className: ye("absolute left-0 w-full bg-white border border-gray-300 pt-2 rounded-bl-md rounded-br-md overflow-hidden z-[1000]", !W && "hidden"), children: [W && j.map((p, v) => k.jsx("li", { ...U({ item: p, index: v }), className: ye("px-4 py-2 cursor-pointer hover:bg-green-100/70 transition", S === v && "bg-green-50/80", b.some((y) => y.value === p.value) && "font-semibold text-gray-900"), children: k.jsx("span", { dangerouslySetInnerHTML: {
+    __html: ot(p.label, u)
+  } }) }, p.value)), W && j.length === 0 && k.jsx("li", { className: "justify-center w-full mx-auto text-center text-slate-400 p-2", children: "No options" })] })] })] }) }) });
 }
 export {
   lt as CustomMultipleCombobox
