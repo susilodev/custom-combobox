@@ -10,5 +10,4 @@ export interface MultipleComboboxProps {
     multiple?: boolean;
     withSearch?: boolean;
 }
-export declare function CustomMultipleCombobox({ options, onSelect, multiple, withSearch, // Default value untuk withSearch adalah true
-...rest }: MultipleComboboxProps): React.JSX.Element;
+export declare function CustomMultipleCombobox({ options, onSelect, multiple, withSearch, ...rest }: MultipleComboboxProps): React.JSX.Element;

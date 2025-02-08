@@ -21,14 +21,14 @@ export interface MultipleComboboxProps {
   onSelect: (selectedItems: Option[]) => void;
   onClick?: () => void;
   multiple?: boolean;
-  withSearch?: boolean; // Tambahkan props withSearch
+  withSearch?: boolean;
 }
 
 export function CustomMultipleCombobox({
   options,
   onSelect,
   multiple = true,
-  withSearch = true, // Default value untuk withSearch adalah true
+  withSearch = true,
   ...rest
 }: MultipleComboboxProps) {
   const [inputValue, setInputValue] = useState("");
