@@ -1,0 +1,28 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
+import tailwindcss from "@tailwindcss/vite";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, "src/index.ts"), // Entry point untuk library
+      name: "CustomMultipleCombobox", // Nama global untuk library
+      fileName: (format) => `custom-multiple-combobox.${format}.js`, // Nama file output
+    },
+    rollupOptions: {
+      // Pastikan untuk mengeksternalkan dependensi yang tidak perlu di-bundle
+      external: ["react", "react-dom", "downshift", "lucide-react"],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+          downshift: "Downshift",
+          "lucide-react": "LucideReact",
+        },
+      },
+    },
+  },
+});
