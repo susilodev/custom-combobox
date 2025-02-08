@@ -1,4 +1,4 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import React from "react";
 import { useState } from "react";
 import { CustomMultipleCombobox, } from "./components/CustomMultipleCombobox";
 const options = [
@@ -21,5 +21,7 @@ export default function App() {
         setSelectedItems(selectedItem); // Simpan nilai yang dipilih ke state
     };
     console.log("Selected Items:", selectedItems); // Cetak ke console untuk debugging
-    return (_jsxs("div", { className: "flex flex-col items-start justify-start min-h-screen  w-full max-w-4xl mx-auto", children: [_jsx("h1", { className: "text-2xl font-bold mb-4 mt-16", children: "Select Dropdown Field" }), _jsx(CustomMultipleCombobox, { options: options, onSelect: handleSelect, multiple: false, withSearch: false })] }));
+    return (React.createElement("div", { className: "flex flex-col items-start justify-start min-h-screen  w-full max-w-4xl mx-auto" },
+        React.createElement("h1", { className: "text-2xl font-bold mb-4 mt-16" }, "Select Dropdown Field"),
+        React.createElement(CustomMultipleCombobox, { options: options, onSelect: handleSelect, multiple: false, withSearch: false })));
 }

@@ -1,4 +1,4 @@
-import { jsx as _jsx } from "react/jsx-runtime";
+import React from "react";
 import "../index.css";
 import { CustomMultipleCombobox, } from "../components/CustomMultipleCombobox"; // Sesuaikan dengan path komponen Anda
 export default {
@@ -11,7 +11,7 @@ export default {
     },
 };
 // Template untuk story
-const Template = (args) => (_jsx(CustomMultipleCombobox, { ...args }));
+const Template = (args) => (React.createElement(CustomMultipleCombobox, { ...args }));
 // Story default
 // Story default
 export const Default = {
@@ -34,5 +34,5 @@ export const Default = {
         multiple: true,
         withSearch: true,
     },
-    render: (args) => _jsx(Template, { ...args }),
+    render: (args) => React.createElement(Template, { ...args }),
 };
