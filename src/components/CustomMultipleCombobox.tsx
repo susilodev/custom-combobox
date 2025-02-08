@@ -187,6 +187,7 @@ export function CustomMultipleCombobox({
             {...(withSearch
               ? getComboboxToggleButtonProps()
               : getSelectToggleButtonProps())}
+            aria-label="toggle menu"
             className="flex items-center border border-slate-300 bg-white rounded-md px-3 py-2 focus-within:shadow-sm focus-within:ring-slate-300 h-10 debug-red"
           >
             <div className="flex flex-wrap gap-1 flex-1">
@@ -230,7 +231,7 @@ export function CustomMultipleCombobox({
 
           {/* Select Dropdown (without search) */}
           {!withSearch && (
-            <>
+            <div {...getSelectToggleButtonProps()}>
               <ul
                 {...getSelectMenuProps()}
                 className={cn(
@@ -255,7 +256,7 @@ export function CustomMultipleCombobox({
                     </li>
                   ))}
               </ul>
-            </>
+            </div>
           )}
 
           {/* Search Combobox */}
@@ -285,40 +286,43 @@ export function CustomMultipleCombobox({
               </div>
 
               {/* Dropdown List */}
-              <ul
-                {...getComboboxMenuProps()}
-                className={cn(
-                  "absolute left-0 w-full bg-white border border-gray-300 pt-2 rounded-bl-md rounded-br-md overflow-hidden z-[1000]",
-                  !isComboboxOpen && "hidden"
-                )}
-              >
-                {isComboboxOpen &&
-                  items.map((item, index) => (
-                    <li
-                      key={item.value}
-                      {...getComboboxItemProps({ item, index })}
-                      className={cn(
-                        "px-4 py-2 cursor-pointer hover:bg-green-100/70 transition",
-                        comboboxHighlightedIndex === index && "bg-green-50/80",
-                        selectedItems.some(
-                          (selected) => selected.value === item.value
-                        ) && "font-semibold text-gray-900"
-                      )}
-                    >
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: highlightText(item.label, inputValue),
-                        }}
-                      />
-                    </li>
-                  ))}
+              <div {...getComboboxToggleButtonProps()}>
+                <ul
+                  {...getComboboxMenuProps()}
+                  className={cn(
+                    "absolute left-0 w-full bg-white border border-gray-300 pt-2 rounded-bl-md rounded-br-md overflow-hidden z-[1000]",
+                    !isComboboxOpen && "hidden"
+                  )}
+                >
+                  {isComboboxOpen &&
+                    items.map((item, index) => (
+                      <li
+                        key={item.value}
+                        {...getComboboxItemProps({ item, index })}
+                        className={cn(
+                          "px-4 py-2 cursor-pointer hover:bg-green-100/70 transition",
+                          comboboxHighlightedIndex === index &&
+                            "bg-green-50/80",
+                          selectedItems.some(
+                            (selected) => selected.value === item.value
+                          ) && "font-semibold text-gray-900"
+                        )}
+                      >
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: highlightText(item.label, inputValue),
+                          }}
+                        />
+                      </li>
+                    ))}
 
-                {isComboboxOpen && items.length === 0 && (
-                  <li className="justify-center w-full mx-auto text-center text-slate-400 p-2">
-                    No options
-                  </li>
-                )}
-              </ul>
+                  {isComboboxOpen && items.length === 0 && (
+                    <li className="justify-center w-full mx-auto text-center text-slate-400 p-2">
+                      No options
+                    </li>
+                  )}
+                </ul>
+              </div>
             </div>
           )}
         </div>
