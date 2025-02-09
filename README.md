@@ -28,8 +28,8 @@ import "custom-combobox/dist/custom-combobox.css";
 
 ## Demo
 
-**Live Demo**: (select-gg-docs.vercel.app)[https://select-gg-docs.vercel.app/]
-**StoryBook**: (custom Combobox Storybook)[https://susilodev.github.io/custom-combobox/?path=/story/components-custommultiplecombobox--default]
+**Live Demo**: [select-gg-docs.vercel.app](https://select-gg-docs.vercel.app/)
+**StoryBook**: [custom Combobox Storybook](https://susilodev.github.io/custom-combobox/?path=/story/components-custommultiplecombobox--default)
 
 ## Props
 
