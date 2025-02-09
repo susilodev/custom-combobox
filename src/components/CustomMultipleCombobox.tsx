@@ -3,7 +3,6 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { useCombobox, useMultipleSelection, useSelect } from "downshift";
 
 import { cn } from "../utils/cn";
-// import { ChevronDown, CircleX, X } from "lucide-react";
 import { ChevronDownIcon, XIcon, CircleXIcon } from "./icons";
 import useHighlightText from "../utils/useHightlightText";
 
@@ -11,13 +10,6 @@ export interface Option {
   value: string;
   label: string;
 }
-
-// const highlightText = (text: string, query: string) => {
-//   if (!query) return text;
-
-//   const regex = new RegExp(`(${query})`, "gi");
-//   return text.replace(regex, '<mark class="bg-green-300">$1</mark>');
-// };
 
 export interface MultipleComboboxProps {
   options: Option[];
