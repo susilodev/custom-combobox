@@ -1,20 +1,23 @@
 import React from "react";
 import { useState, useMemo, useEffect, useRef } from "react";
 import { useCombobox, useMultipleSelection, useSelect } from "downshift";
+
 import { cn } from "../utils/cn";
-import { ChevronDown, CircleX, X } from "lucide-react";
+// import { ChevronDown, CircleX, X } from "lucide-react";
+import { ChevronDownIcon, XIcon, CircleXIcon } from "./icons";
+import useHighlightText from "../utils/useHightlightText";
 
 export interface Option {
   value: string;
   label: string;
 }
 
-const highlightText = (text: string, query: string) => {
-  if (!query) return text;
+// const highlightText = (text: string, query: string) => {
+//   if (!query) return text;
 
-  const regex = new RegExp(`(${query})`, "gi");
-  return text.replace(regex, '<mark class="bg-green-300">$1</mark>');
-};
+//   const regex = new RegExp(`(${query})`, "gi");
+//   return text.replace(regex, '<mark class="bg-green-300">$1</mark>');
+// };
 
 export interface MultipleComboboxProps {
   options: Option[];
@@ -31,6 +34,8 @@ export function CustomMultipleCombobox({
   withSearch = true,
   ...rest
 }: MultipleComboboxProps) {
+  const highlightText = useHighlightText();
+
   const [inputValue, setInputValue] = useState("");
   const [selectedItems, setSelectedItems] = useState<Option[]>([]);
   const [showSearchInput, setShowSearchInput] = useState(false);
@@ -207,7 +212,7 @@ export function CustomMultipleCombobox({
                     })}
                   >
                     {selectedItem.label}
-                    <CircleX
+                    <CircleXIcon
                       onClick={(e) => {
                         e.stopPropagation();
                         removeSelectedItem(selectedItem);
@@ -221,7 +226,7 @@ export function CustomMultipleCombobox({
                 ))}
               </div>
             </div>
-            <X
+            <XIcon
               onClick={(e) => {
                 e.stopPropagation();
                 resetSelectedItems();
@@ -231,10 +236,10 @@ export function CustomMultipleCombobox({
                 (withSearch || selectedItems.length === 0) && "hidden"
               )}
             />
-            <ChevronDown
+            <ChevronDownIcon
               className={cn(
-                "ml-2 cursor-pointer text-xs outline-none focus:outline-none",
-                isFocused ? "text-slate-500" : "text-slate-300"
+                "ml-2 cursor-pointer w-5 h-5 outline-none focus:outline-none",
+                isFocused || isSelectOpen ? "text-slate-500" : "text-slate-300"
               )}
             />
           </div>
@@ -292,7 +297,7 @@ export function CustomMultipleCombobox({
                   })
                 )}
               />
-              <X
+              <XIcon
                 onClick={() => setInputValue("")}
                 className="h-4 w-4 bg-gray-400 p-1 rounded-full cursor-pointer text-slate-100 hover:text-white hover:bg-gray-600"
               />

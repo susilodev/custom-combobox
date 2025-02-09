@@ -16,13 +16,12 @@ export default defineConfig({
     },
     rollupOptions: {
       // Pastikan untuk mengeksternalkan dependensi yang tidak perlu di-bundle
-      external: ["react", "react-dom", "downshift", "lucide-react"],
+      external: ["react", "react-dom", "downshift"],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
           downshift: "Downshift",
-          "lucide-react": "LucideReact",
         },
       },
     },

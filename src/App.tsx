@@ -37,7 +37,7 @@ export default function App() {
         options={options}
         onSelect={handleSelect}
         // multiple={false}
-        // withSearch={false}
+        withSearch={false}
       />
     </div>
   );
