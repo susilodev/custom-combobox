@@ -16,6 +16,26 @@ or
 pnpm install https://github.com/susilodev/custom-combobox
 ```
 
-#Props
+## style
 
-| Props | Type | Description | | --- | --- | --- | | options | Option[] | Dropdown option list | | onSelect | () => void | State change callback handler | | multiple | boolean | Toggle multiple selection on/off | | withSearch | boolean | Enable/disable search input, defaults to regular select if false |
+You must import the CSS alongside the combobox you are importing. This is a required dependency.
+
+```
+//component.tsx
+
+import "custom-combobox/dist/custom-combobox.css";
+```
+
+## Demo
+
+**Live Demo**: (select-gg-docs.vercel.app)[https://select-gg-docs.vercel.app/]
+**StoryBook**: (custom Combobox Storybook)[https://susilodev.github.io/custom-combobox/?path=/story/components-custommultiplecombobox--default]
+
+## Props
+
+| Props        | Type         | Description                                                                                            |
+| ------------ | ------------ | ------------------------------------------------------------------------------------------------------ |
+| `options`    | `Option[]`   | List of options for the dropdown menu.                                                                 |
+| `onSelect`   | `() => void` | Callback function triggered when an option is selected (state change).                                 |
+| `multiple`   | `boolean`    | Enables or disables the ability to select multiple options.                                            |
+| `withSearch` | `boolean`    | Enables or disables the search input functionality. If `false`, it becomes a standard select dropdown. |
