@@ -47,23 +47,29 @@ export function CustomMultipleCombobox({
     [inputValue, options]
   );
 
-  const { getSelectedItemProps, removeSelectedItem } = useMultipleSelection({
-    selectedItems,
-    onStateChange({ selectedItems: newSelectedItems, type }) {
-      switch (type) {
-        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
-        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownDelete:
-        case useMultipleSelection.stateChangeTypes.DropdownKeyDownBackspace:
-        case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
-          setSelectedItems(newSelectedItems || []);
-          onSelect(newSelectedItems || []);
-          break;
-        default:
-          break;
-      }
-    },
-  });
+  const { getSelectedItemProps, removeSelectedItem, getDropdownProps } =
+    useMultipleSelection({
+      selectedItems,
+      onStateChange({ selectedItems: newSelectedItems, type }) {
+        switch (type) {
+          case useMultipleSelection.stateChangeTypes
+            .SelectedItemKeyDownBackspace:
+          case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownDelete:
+          case useMultipleSelection.stateChangeTypes.DropdownKeyDownBackspace:
+          case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
+            setSelectedItems(newSelectedItems || []);
+            onSelect(newSelectedItems || []);
+            break;
+          default:
+            break;
+        }
+      },
+    });
 
+  const resetSelectedItems = () => {
+    setSelectedItems([]);
+    onSelect([]);
+  };
   const {
     isOpen: isComboboxOpen,
     getToggleButtonProps: getComboboxToggleButtonProps,
@@ -171,7 +177,6 @@ export function CustomMultipleCombobox({
         ref={wrapperRef}
         {...rest}
       >
-        {/* Multiple Combobox (Read-only) */}
         <div
           className="relative w-full cursor-pointer"
           onClick={() => {
@@ -190,37 +195,42 @@ export function CustomMultipleCombobox({
             aria-label="toggle menu"
             className="flex items-center border border-slate-300 bg-white rounded-md px-3 py-2 focus-within:shadow-sm focus-within:ring-slate-300 h-10 debug-red"
           >
-            <div className="flex flex-wrap gap-1 flex-1">
-              {selectedItems.map((selectedItem, index) => (
-                <span
-                  key={`selected-item-${index}`}
-                  className="bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-xs flex items-center gap-1"
-                  {...getSelectedItemProps({
-                    selectedItem,
-                    index,
-                  })}
-                >
-                  {selectedItem.label}
-                  {multiple && (
+            <div className="flex-1 overflow-x-auto scrollbar-hide">
+              <div className="flex gap-1 whitespace-nowrap">
+                {selectedItems.map((selectedItem, index) => (
+                  <span
+                    key={`selected-item-${index}`}
+                    className="bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-xs flex items-center gap-1 flex-shrink-0"
+                    {...getSelectedItemProps({
+                      selectedItem,
+                      index,
+                    })}
+                  >
+                    {selectedItem.label}
                     <CircleX
                       onClick={(e) => {
                         e.stopPropagation();
                         removeSelectedItem(selectedItem);
                       }}
-                      className="w-3 h-3 cursor-pointer text-gray-500 hover:text-gray-700"
+                      className={cn(
+                        "w-3 h-3 cursor-pointer text-gray-500 hover:text-gray-700",
+                        !multiple && "hidden"
+                      )}
                     />
-                  )}
-                </span>
-              ))}
+                  </span>
+                ))}
+              </div>
             </div>
-            {!withSearch && selectedItems.length > 0 && (
-              <X
-                onClick={() => {
-                  removeSelectedItem(selectedItems[0]);
-                }}
-                className="h-4 w-4 bg-gray-400 p-1 rounded-full cursor-pointer text-slate-100 hover:text-white hover:bg-gray-600"
-              />
-            )}
+            <X
+              onClick={(e) => {
+                e.stopPropagation();
+                resetSelectedItems();
+              }}
+              className={cn(
+                "h-4 w-4 bg-gray-400 p-1 rounded-full cursor-pointer text-slate-100 hover:text-white hover:bg-gray-600",
+                (withSearch || selectedItems.length === 0) && "hidden"
+              )}
+            />
             <ChevronDown
               className={cn(
                 "ml-2 cursor-pointer text-xs outline-none focus:outline-none",
@@ -230,101 +240,101 @@ export function CustomMultipleCombobox({
           </div>
 
           {/* Select Dropdown (without search) */}
-          {!withSearch && (
-            <div {...getSelectToggleButtonProps()}>
-              <ul
-                {...getSelectMenuProps()}
-                className={cn(
-                  "absolute bg-white z-max left-0 w-full border border-gray-300 pt-1 rounded-bl-md rounded-br-md overflow-hidden",
-                  !isSelectOpen && "hidden"
-                )}
-              >
-                {isSelectOpen &&
-                  options.map((item, index) => (
-                    <li
-                      key={item.value}
-                      {...getSelectItemProps({ item, index })}
-                      className={cn(
-                        "px-4 py-2 cursor-pointer hover:bg-green-100/70 transition",
-                        selectHighlightedIndex === index && "bg-green-50/80",
-                        selectedItems.some(
-                          (selected) => selected.value === item.value
-                        ) && "font-semibold text-gray-900"
-                      )}
-                    >
-                      {item.label}
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          )}
+          <div {...getSelectToggleButtonProps()}>
+            <ul
+              {...getSelectMenuProps()}
+              className={cn(
+                "absolute bg-white z-max left-0 w-full border border-gray-300 pt-1 rounded-bl-md rounded-br-md overflow-hidden",
+                !isSelectOpen || withSearch ? "hidden" : ""
+              )}
+            >
+              {options.map((item, index) => (
+                <li
+                  key={item.value}
+                  {...getSelectItemProps({ item, index })}
+                  className={cn(
+                    "px-4 py-2 cursor-pointer hover:bg-green-100/70 transition",
+                    selectHighlightedIndex === index && "bg-green-50/80",
+                    selectedItems.some(
+                      (selected) => selected.value === item.value
+                    ) && "font-semibold text-gray-900"
+                  )}
+                >
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+          </div>
 
           {/* Search Combobox */}
-          {withSearch && showSearchInput && (
-            <div className="relative w-full mt-2 z-max">
-              <div
-                onFocus={handleFocus}
-                onBlur={() => {
-                  handleBlur();
-                  setShowSearchInput(false);
-                }}
-                className="flex items-center border border-slate-300 bg-white rounded-md px-3 py-2 focus-within:shadow-sm focus-within:ring-slate-300"
-              >
-                <input
-                  {...getInputProps({
+          <div
+            className={cn(
+              "relative w-full mt-2 z-max",
+              !withSearch || !showSearchInput ? "hidden" : ""
+            )}
+          >
+            <div
+              onFocus={handleFocus}
+              onBlur={() => {
+                handleBlur();
+                setShowSearchInput(false);
+              }}
+              className="flex items-center border border-slate-300 bg-white rounded-md px-3 py-2 focus-within:shadow-sm focus-within:ring-slate-300"
+            >
+              <input
+                {...getInputProps(
+                  getDropdownProps({
                     placeholder: "Search...",
                     className:
                       "flex-1 bg-transparent outline-none min-w-[100px]",
                     ref: inputRef,
-                  })}
-                />
-
-                <X
-                  onClick={() => setInputValue("")}
-                  className="h-4 w-4 bg-gray-400 p-1 rounded-full cursor-pointer text-slate-100 hover:text-white hover:bg-gray-600"
-                />
-              </div>
-
-              {/* Dropdown List */}
-              <div {...getComboboxToggleButtonProps()}>
-                <ul
-                  {...getComboboxMenuProps()}
-                  className={cn(
-                    "absolute left-0 w-full bg-white border border-gray-300 pt-2 rounded-bl-md rounded-br-md overflow-hidden z-[1000]",
-                    !isComboboxOpen && "hidden"
-                  )}
-                >
-                  {isComboboxOpen &&
-                    items.map((item, index) => (
-                      <li
-                        key={item.value}
-                        {...getComboboxItemProps({ item, index })}
-                        className={cn(
-                          "px-4 py-2 cursor-pointer hover:bg-green-100/70 transition",
-                          comboboxHighlightedIndex === index &&
-                            "bg-green-50/80",
-                          selectedItems.some(
-                            (selected) => selected.value === item.value
-                          ) && "font-semibold text-gray-900"
-                        )}
-                      >
-                        <span
-                          dangerouslySetInnerHTML={{
-                            __html: highlightText(item.label, inputValue),
-                          }}
-                        />
-                      </li>
-                    ))}
-
-                  {isComboboxOpen && items.length === 0 && (
-                    <li className="justify-center w-full mx-auto text-center text-slate-400 p-2">
-                      No options
-                    </li>
-                  )}
-                </ul>
-              </div>
+                    preventKeyAction: isComboboxOpen,
+                  })
+                )}
+              />
+              <X
+                onClick={() => setInputValue("")}
+                className="h-4 w-4 bg-gray-400 p-1 rounded-full cursor-pointer text-slate-100 hover:text-white hover:bg-gray-600"
+              />
             </div>
-          )}
+
+            {/* Dropdown List */}
+            <div {...getComboboxToggleButtonProps()}>
+              <ul
+                {...getComboboxMenuProps()}
+                className={cn(
+                  "absolute left-0 w-full bg-white border border-gray-300 pt-2 rounded-bl-md rounded-br-md overflow-hidden z-[1000]",
+                  !isComboboxOpen && "hidden"
+                )}
+              >
+                {items.map((item, index) => (
+                  <li
+                    key={item.value}
+                    {...getComboboxItemProps({ item, index })}
+                    className={cn(
+                      "px-4 py-2 cursor-pointer hover:bg-green-100/70 transition",
+                      comboboxHighlightedIndex === index && "bg-green-50/80",
+                      selectedItems.some(
+                        (selected) => selected.value === item.value
+                      ) && "font-semibold text-gray-900"
+                    )}
+                  >
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: highlightText(item.label, inputValue),
+                      }}
+                    />
+                  </li>
+                ))}
+
+                {items.length === 0 && (
+                  <li className="justify-center w-full mx-auto text-center text-slate-400 p-2">
+                    No options
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </>

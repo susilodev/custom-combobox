@@ -36,8 +36,8 @@ export default function App() {
       <CustomMultipleCombobox
         options={options}
         onSelect={handleSelect}
-        multiple={false}
-        withSearch={false}
+        // multiple={false}
+        // withSearch={false}
       />
     </div>
   );

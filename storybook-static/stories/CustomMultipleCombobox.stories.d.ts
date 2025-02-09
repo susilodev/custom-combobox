@@ -1,5 +1,5 @@
-import "../index.css";
-import { CustomMultipleCombobox, MultipleComboboxProps, Option } from "../components/CustomMultipleCombobox";
+import { default as React } from '../../node_modules/react';
+import { CustomMultipleCombobox, MultipleComboboxProps, Option } from '../components/CustomMultipleCombobox';
 declare const _default: {
     title: string;
     component: typeof CustomMultipleCombobox;
@@ -26,5 +26,5 @@ export declare const Default: {
         multiple: boolean;
         withSearch: boolean;
     };
-    render: (args: MultipleComboboxProps) => import("react/jsx-runtime").JSX.Element;
+    render: (args: MultipleComboboxProps) => React.JSX.Element;
 };

@@ -8,6 +8,7 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
   plugins: [react(), tailwindcss(), dts({ insertTypesEntry: true })],
   build: {
+    outDir: "dist",
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"), // Entry point untuk library
       name: "CustomMultipleCombobox", // Nama global untuk library
